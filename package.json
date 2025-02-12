@@ -1,19 +1,30 @@
 {
   "name": "weather-dashboard",
   "version": "1.0.0",
-  "description": "",
+  "description": "Weather Dashboard using OpenWeather API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd server && node server.js",
+    "start:dev": "concurrently \"npm run server:dev\" \"wait-on http://localhost:3001 && npm run client:dev\"",
+    "server": "cd server && node server.js",
+    "server:dev": "cd server && nodemon server.js",
+    "client:build": "cd client && npm run build",
+    "client:dev": "cd client && npm run dev",
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shoc71/Weather-Dashboard.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "weather",
+    "dashboard",
+    "OpenWeather",
+    "API"
+  ],
+  "author": "shoc71",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/shoc71/Weather-Dashboard/issues"
   },
@@ -22,7 +33,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "fs": "^0.0.1-security",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.9",
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.0.1"
   }
 }

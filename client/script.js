@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE_URL = "https://your-app.onrender.com"; // Replace with your actual backend URL
+
     const searchButton = document.getElementById('search-button');
     const searchInput = document.getElementById('search-input');
     const cityNameEl = document.getElementById('city-name');
@@ -9,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const forecastContainer = document.getElementById('forecast-container');
     const historyContainer = document.getElementById('history-container');
 
+    // Event Listener for Search Button
     searchButton.addEventListener('click', () => {
         const city = searchInput.value.trim();
         if (city) {
@@ -16,13 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Fetch Weather Data from Backend
     async function fetchWeather(city) {
         try {
-            const response = await fetch('/api/weather', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+            const response = await fetch(`${API_BASE_URL}/api/weather`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ cityName: city })
             });
+
+            if (!response.ok) throw new Error('Failed to fetch weather data');
+
             const data = await response.json();
             displayWeather(data);
             fetchSearchHistory();
@@ -31,8 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Display Weather Data
     function displayWeather(data) {
         const currentWeather = data[0];
+
         cityNameEl.textContent = `${currentWeather.city} (${currentWeather.date})`;
         weatherIcon.src = `https://openweathermap.org/img/w/${currentWeather.icon}.png`;
         weatherIcon.alt = currentWeather.iconDescription;
@@ -55,17 +64,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Fetch Search History from Backend
     async function fetchSearchHistory() {
-        const response = await fetch('/api/weather/history');
-        const history = await response.json();
-        historyContainer.innerHTML = '';
-        history.forEach(city => {
-            const button = document.createElement('button');
-            button.textContent = city.name;
-            button.addEventListener('click', () => fetchWeather(city.name));
-            historyContainer.appendChild(button);
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/weather/history`);
+            if (!response.ok) throw new Error('Failed to fetch history');
+
+            const history = await response.json();
+            historyContainer.innerHTML = '';
+
+            history.forEach(city => {
+                const button = document.createElement('button');
+                button.textContent = city.name;
+                button.addEventListener('click', () => fetchWeather(city.name));
+                historyContainer.appendChild(button);
+            });
+        } catch (error) {
+            console.error('Error fetching history:', error);
+        }
     }
 
+    // Initial fetch of search history
     fetchSearchHistory();
 });
