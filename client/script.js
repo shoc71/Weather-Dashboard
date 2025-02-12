@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = "https://your-app.onrender.com"; // Replace with your actual backend URL
+    const API_BASE_URL = "https://weather-dashboard-ymxb.onrender.com"; // Replace with your actual backend URL
 
     const searchButton = document.getElementById('search-button');
     const searchInput = document.getElementById('search-input');
