@@ -4,8 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
-    <h1>Weather Dashboard</h1>
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
+
+    <main>
+      <section id="search">
+        <h2>Search for a City:</h2>
+        <input type="text" id="search-input" placeholder="Enter city name" />
+        <button id="search-button">Search</button>
+      </section>
+
+      <section id="current-weather">
+        <h2 id="city-name">Search for a city!</h2>
+        <img id="weather-icon" class="weather-img" />
+        <p id="temp">Temperature: °F</p>
+        <p id="wind">Wind: MPH</p>
+        <p id="humidity">Humidity: %</p>
+      </section>
+
+      <section id="forecast">
+        <h2>5-Day Forecast</h2>
+        <div id="forecast-container"></div>
+      </section>
+
+      <section id="history">
+        <h2>Search History</h2>
+        <div id="history-container"></div>
+      </section>
+    </main>
+
+    <script src="./src/app.js"></script>
   </body>
 </html>
