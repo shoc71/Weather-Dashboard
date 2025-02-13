@@ -4,12 +4,17 @@ import { getCity } from './server.route.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // middleware
 dotenv.config();
 const router = express();
 router.use(cors());
-router.use(express.static(path.join(__dirname))); // Serve files from the root directory
+router.use(express.static(__dirname)); // Serve files from the root directory
 const PORT = process.env.PORT || 3000;
 router.use(express.json());
 
