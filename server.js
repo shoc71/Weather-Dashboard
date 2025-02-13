@@ -13,7 +13,10 @@ const __dirname = path.dirname(__filename);
 // middleware
 dotenv.config();
 const router = express();
-router.use(cors());
+router.use(cors({
+    origin: '*', // Change to frontend URL if needed
+    methods: 'GET,POST'
+})); // Allow all origins
 router.use(express.static(__dirname)); // Serve files from the root directory
 const PORT = process.env.PORT || 3000;
 router.use(express.json());
