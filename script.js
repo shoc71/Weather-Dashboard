@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const searchForm = document.getElementById("search-form"); // Target the form
     const searchInput = document.getElementById("search-input");
-    const searchButton = document.getElementById("search-button");
     const historyContainer = document.getElementById("history-container");
 
     const cityNameEl = document.getElementById("city-name");
@@ -11,25 +11,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const forecastContainer = document.getElementById("forecast-container");
 
-    const API_BASE_URL = "http://localhost:3000/"; // Adjust as needed
+    const API_BASE_URL = "http://localhost:3000/weather"; // Ensure this is the correct route
 
     // Fetch weather data
     const fetchWeather = async (city) => {
+        console.log("Fetching weather for:", city); // Debugging
+
         try {
             const response = await fetch(`${API_BASE_URL}?city=${city}`);
+            console.log("Received response:", response); // Debugging
+
             const data = await response.json();
+            console.log("Parsed data:", data); // Debugging
 
             if (!data.success) {
                 throw new Error(data.message || "Error fetching weather data");
             }
 
             // Update current weather section
-            cityNameEl.textContent = data.city;
+            cityNameEl.textContent = `${data.city}`;
             tempEl.textContent = `Temperature: ${data.data[0].temperature}°C`;
             windEl.textContent = `Wind: ${data.data[0].wind_speed} m/s`;
             humidityEl.textContent = `Humidity: ${data.data[0].humidity}%`;
 
-            // Set weather icon (if applicable)
             if (data.data[0].icon) {
                 weatherIconEl.src = `http://openweathermap.org/img/wn/${data.data[0].icon}.png`;
             }
@@ -48,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 forecastContainer.appendChild(card);
             });
 
-            // Update search history in the frontend
             updateSearchHistory(city);
         } catch (error) {
             console.error("Error:", error.message);
@@ -56,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Load search history from local JSON file
+    // Load search history
     const loadSearchHistory = () => {
         fetch("./searchHistory.json")
             .then(response => response.json())
@@ -72,30 +75,23 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error("Error loading history:", error.message));
     };
 
-    // Update search history (adds button dynamically)
+    // Update search history (prevent duplicate buttons)
     const updateSearchHistory = (city) => {
-        const existingButtons = Array.from(historyContainer.children).map(btn => btn.textContent);
-        if (!existingButtons.includes(city)) {
-            const btn = document.createElement("button");
-            btn.textContent = city;
-            btn.addEventListener("click", () => fetchWeather(city));
-            historyContainer.appendChild(btn);
-        }
+        if ([...historyContainer.children].some(btn => btn.textContent === city)) return;
+
+        const btn = document.createElement("button");
+        btn.textContent = city;
+        btn.addEventListener("click", () => fetchWeather(city));
+        historyContainer.appendChild(btn);
     };
 
-    // Event listeners
-    searchButton.addEventListener("click", () => {
-        event.preventDefault(); 
+    // Handle form submission (Prevents reloads)
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Stop form from reloading the page
         const city = searchInput.value.trim();
         if (city) fetchWeather(city);
     });
 
-    searchInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            searchButton.click();
-        }
-    });
-
-    // Load previous history on page load
+    // Load search history on page load
     loadSearchHistory();
 });

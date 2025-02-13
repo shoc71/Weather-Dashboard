@@ -14,14 +14,21 @@
     <main>
       <section id="search">
         <h2>Search for a City:</h2>
-        <input type="text" id="search-input" placeholder="Enter city name" />
-        <button id="search-button">Search</button>
+        <form id="search-form">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Enter city name"
+            required
+          />
+          <button type="submit">Search</button>
+        </form>
       </section>
 
       <section id="current-weather">
         <h2 id="city-name">Search for a city!</h2>
         <img id="weather-icon" class="weather-img" />
-        <p id="temp">Temperature: °F</p>
+        <p id="temp">Temperature: °C</p>
         <p id="wind">Wind: MPH</p>
         <p id="humidity">Humidity: %</p>
       </section>
