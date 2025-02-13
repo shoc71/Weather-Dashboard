@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const forecastContainer = document.getElementById("forecast-container");
 
-    const API_BASE_URL = "http://localhost:3000/weather"; // Ensure this is the correct route
+    const API_BASE_URL = "https://weather-dashboard-ymxb.onrender.com/weather"; // Ensure this is the correct route
 
     // Fetch weather data
     const fetchWeather = async (city) => {
