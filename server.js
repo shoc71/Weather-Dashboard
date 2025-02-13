@@ -21,7 +21,7 @@ router.use(express.static(__dirname)); // Serve files from the root directory
 const PORT = process.env.PORT || 3000;
 router.use(express.json());
 
-router.get('/', getCity);
+router.get('/weather', getCity);
 
 // Serve index.html by default when visiting the root ("/") route
 router.get('/', (req, res) => {
