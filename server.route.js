@@ -1,17 +1,30 @@
 // imports
 import axios from 'axios';
+import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { updateSearchHistory, deleteSearchHistory } from './searchHistoryManager.js';
 
 // middleware
 dotenv.config();
+const app = express();
+app.use(express.json());
+app.use(cors());
 
 // variables needed
 const API_KEY = process.env.WEATHER_API_KEY || '';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
 
 
-// functions
+// Function to get search history
+export const getSearchHistory = () => {
+    if (fs.existsSync(SEARCH_HISTORY_FILE)) {
+        const fileData = fs.readFileSync(SEARCH_HISTORY_FILE, 'utf8');
+        return JSON.parse(fileData || "{}"); // Parse the search history JSON
+    }
+    return {}; // Return empty object if file doesn't exist
+};
+
 export const getCity = async (req, res) => {
     try {
         console.log("Fetching weather data...");

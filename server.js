@@ -2,15 +2,17 @@
 import express from 'express';
 import { getCity } from './server.route.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 // middleware
 dotenv.config();
-const route = express();
+const router = express();
+router.use(cors());
 const PORT = process.env.PORT
-route.use(express.json());
+router.use(express.json());
 
-route.get('/', getCity);
+router.get('/', getCity);
 
-route.listen(PORT, () => {
+router.listen(PORT, () => {
     console.log('Server is running on port ', PORT);
 });
