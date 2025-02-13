@@ -3,6 +3,7 @@ import express from 'express';
 import { getCity } from './server.route.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from 'path';
 
 // middleware
 dotenv.config();
