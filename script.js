@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const windEl = document.getElementById("wind");
     const humidityEl = document.getElementById("humidity");
     const weatherIconEl = document.getElementById("weather-icon");
+    const todayDate = new Date().toDateString();
 
     const forecastContainer = document.getElementById("forecast-container");
 
-    const API_BASE_URL = "https://weather-dashboard-ymxb.onrender.com/weather"; // Ensure this is the correct route
+    const API_BASE_URL = "https://weather-dashboard-ymxb.onrender.com/weather" || "http://localhost:3000/weather"; // Ensure this is the correct route
 
     // Fetch weather data
     const fetchWeather = async (city) => {
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Update current weather section
-            cityNameEl.textContent = `${data.city}`;
+            cityNameEl.textContent = `${data.city} ${todayDate}`;
             tempEl.textContent = `Temperature: ${data.data[0].temperature}°C`;
             windEl.textContent = `Wind: ${data.data[0].wind_speed} m/s`;
             humidityEl.textContent = `Humidity: ${data.data[0].humidity}%`;
