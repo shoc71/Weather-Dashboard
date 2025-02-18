@@ -2,6 +2,8 @@
 
 by shoc71
 
+![image](https://github.com/user-attachments/assets/496096be-cc05-4cbd-9734-c4ed452a7a2a)
+
 ## Description
 
 This is a Weather-Dashboard app that will show you that weather for today and the next 5 days by clicking this [link](https://weather-dashboard-ymxb.onrender.com/). It uses the weather API callback function making a backend call to display all the required information on to the frontend as pleased.
