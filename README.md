@@ -2,7 +2,7 @@
 
 by shoc71
 
-![image](https://github.com/user-attachments/assets/496096be-cc05-4cbd-9734-c4ed452a7a2a)
+![Weather-API](https://github.com/user-attachments/assets/7a622fe6-81e7-448d-9f5c-7e196471d7ed)
 
 ## Description
 
